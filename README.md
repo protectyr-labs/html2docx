@@ -1,123 +1,59 @@
 # html2docx
 
-HTML to Word document converter with CSS variable resolution, bookmarks, and formatting inheritance.
+> Convert HTML to Word documents with CSS support.
 
-## Why This Exists
+[![CI](https://github.com/protectyr-labs/html2docx/actions/workflows/ci.yml/badge.svg)](https://github.com/protectyr-labs/html2docx/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://python.org)
 
-Reporting pipelines frequently generate HTML output that needs to be delivered as Word documents. Existing conversion tools either lose formatting, ignore CSS variables, or fail on nested inline elements. This library handles the common cases correctly using a 2-pass algorithm that first collects element IDs for bookmark generation, then converts content with full formatting inheritance.
+Two-pass algorithm: collect element IDs for bookmarks, then convert
+content to Word with formatting inheritance. Resolves CSS variables,
+handles tables with headers, and generates cross-reference bookmarks.
 
 ## Quick Start
 
 ```bash
-pip install html2docx-converter
+pip install git+https://github.com/protectyr-labs/html2docx.git
 ```
 
 ```python
 from html2docx import HTMLToDocx
 
 converter = HTMLToDocx()
-
-# From string
-converter.convert("<h1>Report</h1><p>Content here.</p>", "report.docx")
-
-# From file
-converter.convert_file("input.html", "output.docx")
+converter.convert_file("report.html", "report.docx")
+# => report.docx with headings, tables, formatting preserved
 ```
 
 ## Supported Elements
 
-| HTML Element | Word Output | Notes |
-|---|---|---|
-| `<h1>` - `<h6>` | Heading 1-6 | Font size scaled per level |
-| `<p>` | Paragraph | Supports text-align |
-| `<strong>`, `<b>` | Bold run | Nests correctly |
-| `<em>`, `<i>` | Italic run | Nests correctly |
-| `<u>` | Underlined run | |
-| `<code>` | Consolas 9pt run | Inline code |
-| `<pre><code>` | Consolas block | Gray background shading |
-| `<table>` | Word table | thead/tbody, header shading |
-| `<ul>`, `<ol>` | Bullet/Number list | Nested lists supported |
-| `<blockquote>` | Indented italic | |
-| `<hr>` | Bottom border line | |
-| `<img>` | Inline image | Local files only |
-| `<a>` | Plain text | Bookmark targets via `id` |
-| `<span>` | Styled run | Inherits parent formatting |
-| `<mark>` | Yellow highlight | |
+| Element | Support |
+|---------|---------|
+| Headings (h1-h6) | Full — with bookmark generation |
+| Paragraphs | Full — with color and alignment |
+| Tables | Full — thead/tbody, header shading, borders |
+| Lists (ul/ol) | Full — nested, ordered and unordered |
+| Inline formatting | Bold, italic, underline, color, code |
+| Code blocks | Monospace font, preserved whitespace |
+| Images | Embedded from local path |
+| Links | Internal (bookmarks) + external |
+| CSS variables | `var(--primary)` resolved from `:root` |
 
-## CSS Variable Support
+## Why This?
 
-The converter resolves CSS custom properties defined in `:root`:
+- **2-pass algorithm** — first collects all IDs, then converts with cross-reference bookmarks
+- **CSS variable resolution** — handles `var(--color, fallback)` from `:root` declarations
+- **Formatting inheritance** — RunFormat tracks bold/italic/color through nested inline elements
+- **Color normalization** — dark greys (#1E293B) that look fine in browsers become unreadable in Word; auto-mapped to black
 
-```html
-<style>
-:root {
-  --primary: #1a2744;
-  --accent: rgb(255, 102, 0);
-}
-</style>
-<h1 style="color: var(--primary)">Styled Heading</h1>
-<p style="color: var(--accent)">Accented text</p>
-```
+## Limitations
 
-Variables are resolved before color parsing. Supports `#hex` (3 and 6 digit) and `rgb()` formats. Fallback values work: `var(--missing, #333)`.
+- No flexbox/grid layout (Word doesn't support CSS layout)
+- No external CSS file loading (inline `<style>` blocks only)
+- No JavaScript rendering (static HTML only)
+- Images must be local files (no remote URL fetching)
+- Complex nested tables may lose formatting
 
-## API Reference
-
-### `HTMLToDocx`
-
-Main converter class.
-
-```python
-converter = HTMLToDocx()
-```
-
-#### `convert(html: str, output_path: str) -> str`
-
-Convert an HTML string to a DOCX file. Returns the absolute output path.
-
-#### `convert_file(html_path: str, output_path: str) -> str`
-
-Convert an HTML file to a DOCX file. Returns the absolute output path.
-
-#### `stats: dict`
-
-After conversion, contains counts: `{"headings": N, "paragraphs": N, "tables": N, "lists": N}`.
-
-### `CSSVariableResolver`
-
-Standalone CSS variable resolver.
-
-```python
-from html2docx import CSSVariableResolver
-
-resolver = CSSVariableResolver(":root { --brand: #336699; }")
-resolver.resolve("var(--brand)")        # "#336699"
-resolver.resolve("var(--x, fallback)")  # "fallback"
-
-CSSVariableResolver.parse_color("#abc")           # "AABBCC"
-CSSVariableResolver.parse_color("rgb(255, 0, 0)") # "FF0000"
-```
-
-### `RunFormat`
-
-Dataclass tracking inline formatting state through recursive processing.
-
-```python
-from html2docx import RunFormat
-
-fmt = RunFormat(bold=True, italic=True, color="FF0000")
-child_fmt = fmt.copy()
-child_fmt.underline = True  # Original unchanged
-```
-
-## Development
-
-```bash
-git clone https://github.com/protectyr-labs/html2docx.git
-cd html2docx
-pip install -e ".[dev]"
-pytest
-```
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for design decisions.
 
 ## License
 
