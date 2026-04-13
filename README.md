@@ -45,6 +45,14 @@ converter.convert_file("report.html", "report.docx")
 - **Formatting inheritance** — RunFormat tracks bold/italic/color through nested inline elements
 - **Color normalization** — dark greys (#1E293B) that look fine in browsers become unreadable in Word; auto-mapped to black
 
+## Use Cases
+
+**Report generation** -- Your app generates HTML reports (dashboards, assessments, audits). Clients need Word documents for internal distribution. Convert HTML to DOCX preserving formatting.
+
+**Document automation** -- Template-driven document generation. Write templates in HTML/CSS (easier to design), convert to Word for delivery.
+
+**Compliance deliverables** -- Security assessments, audit reports, and compliance documents often need to be delivered as Word files. Generate from HTML with proper headings, tables, and cross-references.
+
 ## Limitations
 
 - No flexbox/grid layout (Word doesn't support CSS layout)
