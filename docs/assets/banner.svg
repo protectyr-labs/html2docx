@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 220">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="arrow-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="220" fill="url(#bg)" rx="4"/>
+
+  <!-- Subtle grid lines -->
+  <g opacity="0.04" stroke="#e2e8f0">
+    <line x1="0" y1="44" x2="1200" y2="44"/>
+    <line x1="0" y1="88" x2="1200" y2="88"/>
+    <line x1="0" y1="132" x2="1200" y2="132"/>
+    <line x1="0" y1="176" x2="1200" y2="176"/>
+  </g>
+
+  <!-- Title text -->
+  <text x="60" y="90" font-family="Segoe UI, system-ui, sans-serif" font-size="42" font-weight="700" fill="#e2e8f0" letter-spacing="-0.5">html2docx</text>
+  <text x="60" y="125" font-family="Segoe UI, system-ui, sans-serif" font-size="16" fill="#94a3b8" letter-spacing="0.3">HTML to Word converter with CSS variable resolution</text>
+  <text x="60" y="155" font-family="Segoe UI, system-ui, sans-serif" font-size="13" fill="#64748b">Two-pass algorithm  /  Formatting inheritance  /  Cross-reference bookmarks</text>
+
+  <!-- HTML document (source) -->
+  <g transform="translate(720, 28)">
+    <!-- Document frame -->
+    <rect x="0" y="0" width="140" height="164" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <!-- Title bar -->
+    <rect x="0" y="0" width="140" height="22" rx="4" fill="#334155"/>
+    <rect x="0" y="12" width="140" height="10" fill="#334155"/>
+    <text x="10" y="15" font-family="Consolas, monospace" font-size="9" fill="#94a3b8">&lt;html&gt;</text>
+    <!-- Dots -->
+    <circle cx="118" cy="11" r="3" fill="#ef4444" opacity="0.7"/>
+    <circle cx="128" cy="11" r="3" fill="#eab308" opacity="0.7"/>
+    <circle cx="138" cy="11" r="3" fill="#22c55e" opacity="0.7"/>
+
+    <!-- HTML content lines -->
+    <!-- Heading tag -->
+    <text x="10" y="42" font-family="Consolas, monospace" font-size="8" fill="#3b82f6">&lt;h1&gt;</text>
+    <rect x="34" y="34" width="60" height="10" rx="2" fill="#3b82f6" opacity="0.2"/>
+    <text x="100" y="42" font-family="Consolas, monospace" font-size="8" fill="#3b82f6">&lt;/h1&gt;</text>
+
+    <!-- Paragraph -->
+    <rect x="10" y="52" width="100" height="6" rx="1" fill="#475569" opacity="0.5"/>
+    <rect x="10" y="62" width="80" height="6" rx="1" fill="#475569" opacity="0.4"/>
+
+    <!-- Table representation -->
+    <rect x="10" y="78" width="120" height="36" rx="2" fill="none" stroke="#475569" stroke-width="0.8"/>
+    <!-- Table header -->
+    <rect x="10" y="78" width="120" height="12" rx="2" fill="#3b82f6" opacity="0.15"/>
+    <line x1="10" y1="90" x2="130" y2="90" stroke="#475569" stroke-width="0.5"/>
+    <line x1="10" y1="102" x2="130" y2="102" stroke="#475569" stroke-width="0.3"/>
+    <line x1="70" y1="78" x2="70" y2="114" stroke="#475569" stroke-width="0.5"/>
+    <!-- Table cell content hints -->
+    <rect x="16" y="82" width="30" height="4" rx="1" fill="#94a3b8" opacity="0.4"/>
+    <rect x="76" y="82" width="30" height="4" rx="1" fill="#94a3b8" opacity="0.4"/>
+    <rect x="16" y="94" width="24" height="4" rx="1" fill="#64748b" opacity="0.4"/>
+    <rect x="76" y="94" width="20" height="4" rx="1" fill="#64748b" opacity="0.4"/>
+    <rect x="16" y="106" width="28" height="4" rx="1" fill="#64748b" opacity="0.4"/>
+    <rect x="76" y="106" width="26" height="4" rx="1" fill="#64748b" opacity="0.4"/>
+
+    <!-- Style block hint -->
+    <text x="10" y="130" font-family="Consolas, monospace" font-size="7" fill="#3b82f6" opacity="0.6">&lt;style&gt;</text>
+    <rect x="10" y="134" width="70" height="5" rx="1" fill="#3b82f6" opacity="0.08"/>
+    <text x="12" y="138" font-family="Consolas, monospace" font-size="6" fill="#3b82f6" opacity="0.4">--primary: #1a2744</text>
+    <text x="10" y="148" font-family="Consolas, monospace" font-size="7" fill="#3b82f6" opacity="0.6">&lt;/style&gt;</text>
+  </g>
+
+  <!-- Conversion arrow -->
+  <g transform="translate(878, 80)">
+    <rect x="0" y="15" width="80" height="30" rx="15" fill="url(#arrow-grad)" opacity="0.15"/>
+    <text x="40" y="35" font-family="Segoe UI, system-ui, sans-serif" font-size="11" fill="#3b82f6" text-anchor="middle" font-weight="600">.docx</text>
+    <!-- Arrow head -->
+    <polygon points="85,30 75,20 75,40" fill="#3b82f6" opacity="0.5"/>
+  </g>
+
+  <!-- Word document (output) -->
+  <g transform="translate(980, 28)">
+    <!-- Document frame with slight shadow -->
+    <rect x="2" y="2" width="160" height="164" rx="4" fill="#000" opacity="0.15"/>
+    <rect x="0" y="0" width="160" height="164" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+
+    <!-- Word blue header bar -->
+    <rect x="0" y="0" width="160" height="22" rx="4" fill="#2563eb"/>
+    <rect x="0" y="12" width="160" height="10" fill="#2563eb"/>
+    <text x="10" y="15" font-family="Segoe UI, sans-serif" font-size="9" fill="#ffffff" font-weight="600">report.docx</text>
+
+    <!-- Heading in Word -->
+    <rect x="12" y="32" width="80" height="12" rx="2" fill="#1e293b"/>
+    <text x="16" y="42" font-family="Segoe UI, sans-serif" font-size="10" fill="#f8fafc" font-weight="700">Heading 1</text>
+
+    <!-- Paragraph lines -->
+    <rect x="12" y="52" width="130" height="4" rx="1" fill="#334155" opacity="0.3"/>
+    <rect x="12" y="60" width="100" height="4" rx="1" fill="#334155" opacity="0.25"/>
+
+    <!-- Table in Word -->
+    <rect x="12" y="74" width="136" height="40" rx="1" fill="none" stroke="#94a3b8" stroke-width="0.8"/>
+    <!-- Header row -->
+    <rect x="12" y="74" width="136" height="13" fill="#dbeafe"/>
+    <rect x="18" y="78" width="34" height="5" rx="1" fill="#1e40af" opacity="0.5"/>
+    <rect x="86" y="78" width="34" height="5" rx="1" fill="#1e40af" opacity="0.5"/>
+    <line x1="12" y1="87" x2="148" y2="87" stroke="#94a3b8" stroke-width="0.5"/>
+    <line x1="12" y1="100" x2="148" y2="100" stroke="#94a3b8" stroke-width="0.3"/>
+    <line x1="80" y1="74" x2="80" y2="114" stroke="#94a3b8" stroke-width="0.5"/>
+    <!-- Data cells -->
+    <rect x="18" y="91" width="28" height="4" rx="1" fill="#475569" opacity="0.3"/>
+    <rect x="86" y="91" width="22" height="4" rx="1" fill="#475569" opacity="0.3"/>
+    <rect x="18" y="104" width="32" height="4" rx="1" fill="#475569" opacity="0.3"/>
+    <rect x="86" y="104" width="28" height="4" rx="1" fill="#475569" opacity="0.3"/>
+
+    <!-- List items -->
+    <circle cx="18" cy="124" r="2" fill="#334155" opacity="0.4"/>
+    <rect x="24" y="122" width="60" height="4" rx="1" fill="#334155" opacity="0.25"/>
+    <circle cx="18" cy="134" r="2" fill="#334155" opacity="0.4"/>
+    <rect x="24" y="132" width="50" height="4" rx="1" fill="#334155" opacity="0.25"/>
+    <circle cx="18" cy="144" r="2" fill="#334155" opacity="0.4"/>
+    <rect x="24" y="142" width="55" height="4" rx="1" fill="#334155" opacity="0.25"/>
+
+    <!-- Bookmark indicator -->
+    <rect x="134" y="30" width="18" height="14" rx="2" fill="#2563eb" opacity="0.1"/>
+    <text x="143" y="40" font-family="Segoe UI, sans-serif" font-size="8" fill="#2563eb" text-anchor="middle" opacity="0.6">#</text>
+  </g>
+</svg>
